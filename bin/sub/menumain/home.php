@@ -61,60 +61,34 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 	.admin-box {
 	width: 24%;
 	padding: 10px;
-	border-radius: 6px;
 	border: 1px solid #ddd;
-	box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+	overflow-y: auto;
+	border-radius: 6px;
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	background: #fff;
 	}
 
-	/* 배경색 */
-	.bg-blue   { background-color: #e3f2fd; }
-	.bg-pink   { background-color: #fdecef; }
-	.bg-green  { background-color: #e0f7e9; }
-	.bg-yellow { background-color: #fff8e1; }
-
-	/* 아이콘 색상 */
-	.icon-blue   { color: #2196f3; }
-	.icon-pink   { color: #e91e63; }
-	.icon-green  { color: #43a047; }
-	.icon-yellow { color: #f9a825; }
-
-	/* 헤더 */
 	.admin-box-header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 40px;
-	border-bottom: 1px solid #ccc;
+	height: 50px;
+	margin-bottom: 12px;
 	padding: 0 6px;
+	border-bottom: 1px solid #eee;
 	}
 
 	.admin-box-title {
 	font-size: 16px;
 	font-weight: bold;
+	color: #222;
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	}
-
-	/* 항목 스타일 */
-	.status-item {
-	display: flex;
-	justify-content: space-between;
-	padding: 6px 10px;
-	font-size: 14px;
-	border-radius: 4px;
-	background: #fff;
-	color: #333;
-	}
-
-	/* count 색상은 박스색에 맞춰 조화롭게 */
-	.bg-blue .count   { color: #1976d2; font-weight: bold; }
-	.bg-pink .count   { color: #d81b60; font-weight: bold; }
-	.bg-green .count  { color: #2e7d32; font-weight: bold; }
-	.bg-yellow .count { color: #f57f17; font-weight: bold; }
 
 	.more-link {
 	font-size: 13px;
@@ -124,6 +98,133 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 	align-items: center;
 	gap: 4px;
 	}
+
+	/* 주문처리 2줄 배치 */
+	.order-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 6px;
+	}
+
+	.order-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 6px 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #333;
+	background: none;
+	}
+
+	.order-item .count {
+	font-weight: bold;
+	color: #1976d2;
+	}
+
+	/* 상품현황 */
+	.product-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 6px;
+	}
+
+	.product-box {
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	padding: 10px;
+	height: 100%;
+	background: none;
+	}
+
+	.product-title {
+	font-size: 14px;
+	margin-bottom: 8px;
+	padding-bottom: 4px;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+	}
+
+	.product-status-list {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	}
+
+	.product-item {
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+	padding: 6px 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	color: #333;
+	background: none;
+	}
+
+	/* 회원관리 */
+	.member-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	}
+
+	.member-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #333;
+	background: none;
+	}
+
+	.member-item .count {
+	font-weight: bold;
+	color: #e65100;
+	}
+
+	/* 상품문의/1:1문의 */
+	.inquiry-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	}
+
+	.inquiry-item {
+	border-bottom: 1px solid #eee;
+	padding: 6px 0;
+	font-size: 13px;
+	}
+
+	.inquiry-item .status {
+	font-weight: bold;
+	color: #e91e63;
+	float: right;
+	}
+
+	.inquiry-item time {
+	font-size: 11px;
+	color: #999;
+	display: block;
+	}
+
+	/* 박스별 배경색 */
+	.box-order    { background: #e3f2fd; }
+	.box-product  { background: #fce4ec; }
+	.box-member   { background: #fff3e0; }
+	.box-inquiry  { background: #ede7f6; }
+
+	/* 아이콘 색상 박스별로 */
+	.box-order    .admin-box-title i { color: #1e88e5; }
+	.box-product  .admin-box-title i { color: #d81b60; }
+	.box-member   .admin-box-title i { color: #ef6c00; }
+	.box-inquiry  .admin-box-title i { color: #5e35b1; }
+
 
 	/* 하단 영역 (그래프 + 공지사항) */
 	#admin_bottom_section {
@@ -238,7 +339,7 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 		<!-- 상단 관리자 박스 -->
 		<div id="admin_top_section">
 		<!-- 주문처리 -->
-			<div class="admin-box bg-blue">
+			<div class="admin-box box-order">
 				<div class="admin-box-header">
 				<div class="admin-box-title"><i class="fas fa-receipt icon-blue"></i> 주문처리</div>
 				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
@@ -254,7 +355,7 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 			</div>
 
 			<!-- 상품현황 -->
-			<div class="admin-box bg-pink">
+			<div class="admin-box box-product">
 				<div class="admin-box-header">
 				<div class="admin-box-title"><i class="fas fa-box icon-pink"></i> 상품현황</div>
 				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
@@ -267,7 +368,7 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 			</div>
 
 			<!-- 회원관리 -->
-			<div class="admin-box bg-green">
+			<div class="admin-box box-member">
 				<div class="admin-box-header">
 				<div class="admin-box-title"><i class="fas fa-user icon-green"></i> 회원관리</div>
 				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
@@ -280,7 +381,7 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 			</div>
 
 			<!-- 상품문의 -->
-			<div class="admin-box bg-yellow">
+			<div class="admin-box box-inquiry">
 				<div class="admin-box-header">
 				<div class="admin-box-title"><i class="fas fa-question-circle icon-yellow"></i> 상품문의</div>
 				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>

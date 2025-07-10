@@ -41,7 +41,7 @@ $listData_0 = array();
 while( $fet = sqlsrv_fetch_array( $qry, SQLSRV_FETCH_ASSOC) ) {
 	$listData_0[]	= $fet;
 }
-
+//asdf
 $carprice1 = $listData_0[0]['carprice1'];
 
 // 부속품 합계금액
