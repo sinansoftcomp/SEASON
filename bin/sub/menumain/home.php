@@ -20,61 +20,55 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
         'cancel_amt' => $row['cancel_amt']
     ];
 }
-/*
- * 세로 스크롤의 주요 원인은 전체 레이아웃의 높이 합이 100vh(뷰포트 높이)를 초과하기 때문입니다.
- * #admin_top_section이 height: 40vh, #admin_bottom_section이 height: 60vh로 합이 100vh인데,
- * 각각 padding, border, margin 등으로 실제 높이가 더 커져 스크롤이 생깁니다.
- * 
- * 해결 방법:
- * 1. 두 섹션의 height를 각각 40vh, 60vh에서 auto로 바꾸고, 필요시 min-height로 조정하세요.
- * 2. 또는 padding, border를 줄이거나 box-sizing: border-box;가 모든 요소에 적용됐는지 확인하세요.
- * 3. body에 overflow-y: hidden;을 임의로 넣지 마세요(숨겨질 수 있음).
- * 
- * 예시(추천):
- * #admin_top_section, #admin_bottom_section의 height를 auto로 변경:
- * 
- * #admin_top_section {
- *   height: auto;
- *   min-height: 40vh;
- * }
- * #admin_bottom_section {
- *   height: auto;
- *   min-height: 60vh;
- * }
- * 
- * 또는 전체 레이아웃을 flex column 구조로 감싸고, 내부 flex-grow로 비율을 맞추는 것도 방법입니다.
- */
+
 ?>
 
 <style>
 	* { box-sizing: border-box; }
 	body { margin: 0; font-family: '맑은 고딕', sans-serif; background: #f9f9f9; }
 
-	/* admin-box 높이 통일 (CSS flex로) */
+	#admin_container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	/* 가장 상단 날짜 및 시간 표시 */ 
+	#admin_header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 12px 20px;
+		font-size: 18px;
+		font-weight: bold;
+		background: #ffffff;
+		border-bottom: 1px solid #ddd;
+		color: #333;
+	}	
+
+	/* 상단 4박스 영역 */
 	#admin_top_section {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		align-items: stretch; /* 추가: 모든 .admin-box 높이 맞춤 */
+		gap: 1%; /* 간격을 %로 조절 */
 		padding: 10px;
-		height: auto;
-		min-height: 40vh;
 		background: #f0f0f0;
-		border-bottom: 2px solid #ccc;
+		flex: 1 1 40%;
+		overflow-y: auto;
 	}
+
 	.admin-box {
-		flex: 0 0 calc(25% - 12px);
-		margin: 6px;
+		width: 24%;
 		padding: 10px;
 		background: #fff;
 		border: 1px solid #ddd;
 		box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-		/* height: calc(100% - 32px);  삭제 */
 		overflow-y: auto;
 		border-radius: 6px;
 		position: relative;
-		display: flex;           /* 추가 */
-		flex-direction: column;  /* 추가 */
+		display: flex;
+		flex-direction: column;
 	}
 
 	.admin-box-header {
@@ -90,6 +84,18 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 	align-items: center;
 	gap: 8px;
 	}
+
+
+	.admin-box,
+	.graph-box,
+	.notice-box {
+		box-shadow: 1px 1px 4px rgba(0,0,0,0.08);
+		border-radius: 6px;
+		background: #fff;
+		border: 1px solid #ddd;
+		padding: 10px;
+		overflow: hidden;
+	}	
 
 	.admin-box-title i { font-size: 22px; color: #2196f3; }
 
@@ -149,17 +155,46 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 		font-size: 11px; color: #999; display: block;
 	}
 
+	/* 회원관리 */
+	.member-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.member-item {
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 10px;
+		background: #f7f7f7;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		font-size: 14px;
+		color: #333;
+	}
+
+	.member-item .count {
+		font-weight: bold;
+		color: #2196f3;
+	}	
+
+	/* 하단 영역 (그래프 + 공지사항) */
 	#admin_bottom_section {
-		display: flex; 
-		padding: 20px;
-	    height: auto;
-	    min-height: 60vh;
-		background: #fff; gap: 20px;
+		display: flex;
+		gap: 10px;
+		padding: 10px;
+		flex: 1 1 60%;
+		background: #fff;
+		overflow-y: auto;
 	}
 
 	.graph-box {
-		width: 60%; border: 1px solid #ddd;
-		background: #fafafa; border-radius: 6px; padding: 15px;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.notice-box {
@@ -173,7 +208,10 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 	}
 
 	#chart_div {
-		width: 100%; height: 280px;
+		flex: 1; /* 차트 영역이 남은 공간 모두 차지 */
+		width: 100%;
+		height: 100%;
+		min-height: 280px; /* 최소 높이 보장 */
 	}
 
 	.sum-box {
@@ -193,17 +231,20 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+	let chart, data, options;
+	
+  google.charts.load('current', {packages: ['corechart']});
+  google.charts.setOnLoadCallback(initChart);
 
-  function drawChart() {
-	const data = google.visualization.arrayToDataTable([
-	['날짜', {label: '주문금액', type: 'number'}, {type: 'string', role: 'tooltip', p: {html: true}},
-			{label: '취소금액', type: 'number'}, {type: 'string', role: 'tooltip', p: {html: true}}],
-	<?= implode(",\n  ", $graph_rows) ?>
-	]);
+  function initChart() {
+    data = google.visualization.arrayToDataTable([
+      ['날짜', {label: '주문금액', type: 'number'}, {type: 'string', role: 'tooltip', p: {html: true}},
+               {label: '취소금액', type: 'number'}, {type: 'string', role: 'tooltip', p: {html: true}}],
+      <?= implode(",\n  ", $graph_rows) ?>
 
-    const options = {
+    ]);
+
+    options = {
       title: '최근 7일 주문/취소 금액',
       legend: { position: 'top' },
       bars: 'vertical',
@@ -218,9 +259,18 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
       }
     };
 
-    const chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    drawChart();
   }
+
+  function drawChart() {
+    if (chart && data && options) {
+      chart.draw(data, options);
+    }
+  }
+
+  // 리사이즈 대응
+  window.addEventListener('resize', drawChart);
 
   $(function(){
     const orders = [<?= implode(",", array_map(fn($r) => $r['order_amt'], $graph_rows_php)) ?>];
@@ -235,97 +285,134 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 
 
 <div style="padding:5px 5px" class="div_grid2">
-	<!-- 상단 관리자 박스 -->
-	<div id="admin_top_section">
-	<div class="admin-box">
-		<div class="admin-box-header">
-		<div class="admin-box-title"><i class="fas fa-truck"></i> 주문처리</div>
-		<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+	<div id="admin_container">
+		<div id="admin_header">
+			<span id="current_date"></span>
+			<span id="current_time"></span>
 		</div>
-		<div class="order-grid">
-		<div class="order-item">입금대기 <span class="count">2건</span></div>
-		<div class="order-item">입금완료 <span class="count">1건</span></div>
-		<div class="order-item">발주 <span class="count">4건</span></div>
-		<div class="order-item">발주사배송 <span class="count">2건</span></div>
-		<div class="order-item">국내공항도착 <span class="count">0건</span></div>
-		<div class="order-item">배송중 <span class="count">3건</span></div>
-		<div class="order-item">배송완료 <span class="count">6건</span></div>
-		<div class="order-item">고객확정 <span class="count">7건</span></div>
-		<div class="order-item">취소 <span class="count">0건</span></div>
-		<div class="order-item">반품 <span class="count">1건</span></div>
-		</div>
-	</div>
 
-	<div class="admin-box">
-		<div class="admin-box-header">
-		<div class="admin-box-title"><i class="fas fa-box"></i> 상품현황</div>
-		<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
-		</div>
-		<div class="product-grid">
-		<div class="product-box bg-blue">
-			<div class="product-title">일반판매</div>
-			<div class="product-status-list">
-			<div class="product-item"><span>판매중</span> <span>63개</span></div>
-			<div class="product-item"><span>판매종료</span> <span>12개</span></div>
+		<!-- 상단 관리자 박스 -->
+		<!-- 주문관리 --> 
+		<div id="admin_top_section">
+			<div class="admin-box">
+				<div class="admin-box-header">
+				<div class="admin-box-title"><i class="fas fa-truck"></i> 주문처리</div>
+				<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+				</div>
+				<div class="order-grid">
+				<div class="order-item">입금대기 <span class="count">2건</span></div>
+				<div class="order-item">입금완료 <span class="count">1건</span></div>
+				<div class="order-item">발주 <span class="count">4건</span></div>
+				<div class="order-item">발주사배송 <span class="count">2건</span></div>
+				<div class="order-item">국내공항도착 <span class="count">0건</span></div>
+				<div class="order-item">배송중 <span class="count">3건</span></div>
+				<div class="order-item">배송완료 <span class="count">6건</span></div>
+				<div class="order-item">고객확정 <span class="count">7건</span></div>
+				<div class="order-item">취소 <span class="count">0건</span></div>
+				<div class="order-item">반품 <span class="count">1건</span></div>
+				</div>
+			</div>
+
+  			<!-- 상품현황 --> 
+			<div class="admin-box">
+				<div class="admin-box-header">
+				<div class="admin-box-title"><i class="fas fa-box"></i> 상품현황</div>
+				<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+				</div>
+				<div class="product-grid">
+				<div class="product-box bg-blue">
+					<div class="product-title">일반판매</div>
+					<div class="product-status-list">
+					<div class="product-item"><span>판매중</span> <span>63개</span></div>
+					<div class="product-item"><span>판매종료</span> <span>12개</span></div>
+					</div>
+				</div>
+				<div class="product-box bg-pink">
+					<div class="product-title">이벤트판매</div>
+					<div class="product-status-list">
+					<div class="product-item"><span>판매중</span> <span>5개</span></div>
+					<div class="product-item"><span>품절</span> <span>3개</span></div>
+					<div class="product-item"><span>판매종료</span> <span>7개</span></div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="product-box bg-pink">
-			<div class="product-title">이벤트판매</div>
-			<div class="product-status-list">
-			<div class="product-item"><span>판매중</span> <span>5개</span></div>
-			<div class="product-item"><span>품절</span> <span>3개</span></div>
-			<div class="product-item"><span>판매종료</span> <span>7개</span></div>
+
+		<!-- 회원관리 -->
+		<div class="admin-box">
+			<div class="admin-box-header">
+				<div class="admin-box-title"><i class="fas fa-users"></i> 회원관리</div>
+				<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+			</div>
+			<ul class="member-list">
+				<li class="member-item">전체가입회원 <span class="count">240명</span></li>
+				<li class="member-item">승인대기 <span class="count">3명</span></li>
+				<li class="member-item">최근 한달 가입 <span class="count">17명</span></li>
+				<li class="member-item">최근 한달 탈퇴 <span class="count">2명</span></li>
+				<li class="member-item">휴먼회원 <span class="count">21명</span></li>
+			</ul>
+		</div>
+
+		<!-- 상품문의 -->
+		<div class="admin-box">
+			<div class="admin-box-header">
+			<div class="admin-box-title"><i class="fas fa-comment-dots"></i> 상품문의</div>
+			<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+			</div>
+			<ul class="inquiry-list">
+			<li class="inquiry-item">사이즈가 어떻게 되나요?<span class="status">미답변</span><time>07:00</time></li>
+			<li class="inquiry-item">재입고 언제 되나요?<span class="status">답변완료</span><time>06:45</time></li>
+			<li class="inquiry-item">가격 조정 가능한가요?<span class="status">미답변</span><time>05:55</time></li>
+			</ul>
+		</div>
+		</div>
+
+		<!-- 하단 그래프 + 공지사항 -->
+		<div id="admin_bottom_section">
+			<div class="graph-box">
+				<h3>주문/취소금액 그래프</h3>
+				<div class="sum-box">
+				<div class="sum-item">주문 합계: <span id="order_sum" class="order">0원</span></div>
+				<div class="sum-item">취소 합계: <span id="cancel_sum" class="cancel">0원</span></div>
+				</div>
+				<div id="chart_div"></div>
+			</div>
+
+			<div class="notice-box">
+				<h3>공지사항</h3>
+				<ul>
+				<li>[점검] 7월 13일 오전 2시~4시 서버 점검 예정</li>
+				<li>[신규기능] 배송추적 API 연동 완료 안내</li>
+				</ul>
 			</div>
 		</div>
-		</div>
-	</div>
 
-	<div class="admin-box">
-		<div class="admin-box-header">
-		<div class="admin-box-title"><i class="fas fa-user-headset"></i> 1:1문의</div>
-		<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
-		</div>
-		<ul class="inquiry-list">
-		<li class="inquiry-item">배송 언제 오나요?<span class="status">미답변</span><time>07:30</time></li>
-		<li class="inquiry-item">제품 불량 같습니다<span class="status">미답변</span><time>06:20</time></li>
-		<li class="inquiry-item">교환 요청합니다<span class="status">답변완료</span><time>06:10</time></li>
-		</ul>
-	</div>
-
-	<div class="admin-box">
-		<div class="admin-box-header">
-		<div class="admin-box-title"><i class="fas fa-comment-dots"></i> 상품문의</div>
-		<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
-		</div>
-		<ul class="inquiry-list">
-		<li class="inquiry-item">사이즈가 어떻게 되나요?<span class="status">미답변</span><time>07:00</time></li>
-		<li class="inquiry-item">재입고 언제 되나요?<span class="status">답변완료</span><time>06:45</time></li>
-		<li class="inquiry-item">가격 조정 가능한가요?<span class="status">미답변</span><time>05:55</time></li>
-		</ul>
-	</div>
-	</div>
-
-	<!-- 하단 그래프 + 공지사항 -->
-	<div id="admin_bottom_section">
-	<div class="graph-box">
-		<h3>주문/취소금액 그래프</h3>
-		<div class="sum-box">
-		<div class="sum-item">주문 합계: <span id="order_sum" class="order">0원</span></div>
-		<div class="sum-item">취소 합계: <span id="cancel_sum" class="cancel">0원</span></div>
-		</div>
-		<div id="chart_div"></div>
-	</div>
-
-	<div class="notice-box">
-		<h3>공지사항</h3>
-		<ul>
-		<li>[점검] 7월 13일 오전 2시~4시 서버 점검 예정</li>
-		<li>[신규기능] 배송추적 API 연동 완료 안내</li>
-		</ul>
-	</div>
 	</div>
 </div>
 
+
+<script>
+// 현재 날짜와 시간을 업데이트하는 함수
+function updateClock() {
+  const now = new Date();
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const date = String(now.getDate()).padStart(2, '0');
+  const day = days[now.getDay()];
+
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+
+  document.getElementById('current_date').innerText = `${year}년 ${month}월 ${date}일 (${day})`;
+  document.getElementById('current_time').innerText = `${hours}:${minutes}`;
+}
+
+// 최초 실행 + 1분마다 업데이트
+updateClock();
+setInterval(updateClock, 60000);
+</script>
 
 <?
 include($_SERVER['DOCUMENT_ROOT'].$conf['homeDir']."/include/source/bottom.php");
