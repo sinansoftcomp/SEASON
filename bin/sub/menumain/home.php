@@ -48,138 +48,82 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 
 	/* 상단 4박스 영역 */
 	#admin_top_section {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		gap: 1%; /* 간격을 %로 조절 */
-		padding: 10px;
-		background: #f0f0f0;
-		flex: 1 1 40%;
-		overflow-y: auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 1%;
+	padding: 10px;
+	background: #f0f0f0;
+	flex: 1 1 40%;
+	overflow-y: auto;
 	}
 
 	.admin-box {
-		width: 24%;
-		padding: 10px;
-		background: #fff;
-		border: 1px solid #ddd;
-		box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-		overflow-y: auto;
-		border-radius: 6px;
-		position: relative;
-		display: flex;
-		flex-direction: column;
+	width: 24%;
+	padding: 10px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	}
 
+	/* 배경색 */
+	.bg-blue   { background-color: #e3f2fd; }
+	.bg-pink   { background-color: #fdecef; }
+	.bg-green  { background-color: #e0f7e9; }
+	.bg-yellow { background-color: #fff8e1; }
+
+	/* 아이콘 색상 */
+	.icon-blue   { color: #2196f3; }
+	.icon-pink   { color: #e91e63; }
+	.icon-green  { color: #43a047; }
+	.icon-yellow { color: #f9a825; }
+
+	/* 헤더 */
 	.admin-box-header {
-		display: flex; align-items: center; justify-content: space-between;
-		height: 50px; margin-bottom: 12px; padding: 0 6px; border-bottom: 1px solid #eee;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 40px;
+	border-bottom: 1px solid #ccc;
+	padding: 0 6px;
 	}
 
 	.admin-box-title {
-	font-size: 16px; /* ↓ 줄임 */
+	font-size: 16px;
 	font-weight: bold;
-	color: #222;
 	display: flex;
 	align-items: center;
 	gap: 8px;
 	}
 
+	/* 항목 스타일 */
+	.status-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 6px 10px;
+	font-size: 14px;
+	border-radius: 4px;
+	background: #fff;
+	color: #333;
+	}
 
-	.admin-box,
-	.graph-box,
-	.notice-box {
-		box-shadow: 1px 1px 4px rgba(0,0,0,0.08);
-		border-radius: 6px;
-		background: #fff;
-		border: 1px solid #ddd;
-		padding: 10px;
-		overflow: hidden;
-	}	
-
-	.admin-box-title i { font-size: 22px; color: #2196f3; }
+	/* count 색상은 박스색에 맞춰 조화롭게 */
+	.bg-blue .count   { color: #1976d2; font-weight: bold; }
+	.bg-pink .count   { color: #d81b60; font-weight: bold; }
+	.bg-green .count  { color: #2e7d32; font-weight: bold; }
+	.bg-yellow .count { color: #f57f17; font-weight: bold; }
 
 	.more-link {
-		font-size: 13px; color: #666; cursor: pointer;
-		display: flex; align-items: center; gap: 4px;
+	font-size: 13px;
+	color: #666;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 4px;
 	}
-
-	.order-grid, .product-grid {
-		display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-	}
-
-	.order-item, .product-item {
-		display: flex; justify-content: space-between;
-		padding: 6px 8px; background: #f7f7f7;
-		border: 1px solid #ddd; border-radius: 4px;
-		font-size: 14px; color: #333;
-	}
-
-
-	.order-item span.count {
-		font-weight: bold;
-		color: #2196f3;
-	}	
-
-	.product-box {
-		border: 1px solid #ddd; border-radius: 6px;
-		padding: 10px; height: 100%;
-	}
-
-	.product-title {
-		font-size: 14px; margin-bottom: 8px; padding-bottom: 4px;
-		font-weight: bold; border-bottom: 1px solid #ddd;
-	}
-
-	.product-status-list {
-		display: flex; flex-direction: column; gap: 6px;
-	}
-
-	.bg-blue { background-color: #e3f2fd; }
-	.bg-pink { background-color: #fdecef; }
-
-	.inquiry-list {
-		list-style: none; padding: 0; margin: 0;
-	}
-
-	.inquiry-item {
-		border-bottom: 1px solid #eee;
-		padding: 6px 0; font-size: 13px;
-	}
-
-	.inquiry-item .status {
-		font-weight: bold; color: #e91e63; float: right;
-	}
-
-	.inquiry-item time {
-		font-size: 11px; color: #999; display: block;
-	}
-
-	/* 회원관리 */
-	.member-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-	}
-
-	.member-item {
-		display: flex;
-		justify-content: space-between;
-		padding: 8px 10px;
-		background: #f7f7f7;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-		font-size: 14px;
-		color: #333;
-	}
-
-	.member-item .count {
-		font-weight: bold;
-		color: #2196f3;
-	}	
 
 	/* 하단 영역 (그래프 + 공지사항) */
 	#admin_bottom_section {
@@ -292,79 +236,58 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 		</div>
 
 		<!-- 상단 관리자 박스 -->
-		<!-- 주문관리 --> 
 		<div id="admin_top_section">
-			<div class="admin-box">
+		<!-- 주문처리 -->
+			<div class="admin-box bg-blue">
 				<div class="admin-box-header">
-				<div class="admin-box-title"><i class="fas fa-truck"></i> 주문처리</div>
-				<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+				<div class="admin-box-title"><i class="fas fa-receipt icon-blue"></i> 주문처리</div>
+				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
 				</div>
-				<div class="order-grid">
-				<div class="order-item">입금대기 <span class="count">2건</span></div>
-				<div class="order-item">입금완료 <span class="count">1건</span></div>
-				<div class="order-item">발주 <span class="count">4건</span></div>
-				<div class="order-item">발주사배송 <span class="count">2건</span></div>
-				<div class="order-item">국내공항도착 <span class="count">0건</span></div>
-				<div class="order-item">배송중 <span class="count">3건</span></div>
-				<div class="order-item">배송완료 <span class="count">6건</span></div>
-				<div class="order-item">고객확정 <span class="count">7건</span></div>
-				<div class="order-item">취소 <span class="count">0건</span></div>
-				<div class="order-item">반품 <span class="count">1건</span></div>
-				</div>
+				<div class="status-item">입금대기 <span class="count">2건</span></div>
+				<div class="status-item">입금완료 <span class="count">3건</span></div>
+				<div class="status-item">발주 <span class="count">5건</span></div>
+				<div class="status-item">발주사배송 <span class="count">1건</span></div>
+				<div class="status-item">국내공항도착 <span class="count">0건</span></div>
+				<div class="status-item">배송중 <span class="count">2건</span></div>
+				<div class="status-item">배송완료 <span class="count">4건</span></div>
+				<div class="status-item">고객확정 <span class="count">3건</span></div>
 			</div>
 
-  			<!-- 상품현황 --> 
-			<div class="admin-box">
+			<!-- 상품현황 -->
+			<div class="admin-box bg-pink">
 				<div class="admin-box-header">
-				<div class="admin-box-title"><i class="fas fa-box"></i> 상품현황</div>
-				<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+				<div class="admin-box-title"><i class="fas fa-box icon-pink"></i> 상품현황</div>
+				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
 				</div>
-				<div class="product-grid">
-				<div class="product-box bg-blue">
-					<div class="product-title">일반판매</div>
-					<div class="product-status-list">
-					<div class="product-item"><span>판매중</span> <span>63개</span></div>
-					<div class="product-item"><span>판매종료</span> <span>12개</span></div>
-					</div>
-				</div>
-				<div class="product-box bg-pink">
-					<div class="product-title">이벤트판매</div>
-					<div class="product-status-list">
-					<div class="product-item"><span>판매중</span> <span>5개</span></div>
-					<div class="product-item"><span>품절</span> <span>3개</span></div>
-					<div class="product-item"><span>판매종료</span> <span>7개</span></div>
-					</div>
-				</div>
+				<div class="status-item">일반판매 (판매중) <span class="count">30건</span></div>
+				<div class="status-item">일반판매 (판매종료) <span class="count">12건</span></div>
+				<div class="status-item">이벤트 (판매중) <span class="count">4건</span></div>
+				<div class="status-item">이벤트 (품절) <span class="count">2건</span></div>
+				<div class="status-item">이벤트 (판매종료) <span class="count">1건</span></div>
 			</div>
-		</div>
 
-		<!-- 회원관리 -->
-		<div class="admin-box">
-			<div class="admin-box-header">
-				<div class="admin-box-title"><i class="fas fa-users"></i> 회원관리</div>
-				<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+			<!-- 회원관리 -->
+			<div class="admin-box bg-green">
+				<div class="admin-box-header">
+				<div class="admin-box-title"><i class="fas fa-user icon-green"></i> 회원관리</div>
+				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
+				</div>
+				<div class="status-item">전체가입회원 <span class="count">102건</span></div>
+				<div class="status-item">승인대기 <span class="count">3건</span></div>
+				<div class="status-item">최근한달가입 <span class="count">8건</span></div>
+				<div class="status-item">최근한달탈퇴 <span class="count">2건</span></div>
+				<div class="status-item">휴먼회원 <span class="count">6건</span></div>
 			</div>
-			<ul class="member-list">
-				<li class="member-item">전체가입회원 <span class="count">240명</span></li>
-				<li class="member-item">승인대기 <span class="count">3명</span></li>
-				<li class="member-item">최근 한달 내 가입회원 <span class="count">17명</span></li>
-				<li class="member-item">최근 한달 내 탈퇴회원 <span class="count">2명</span></li>
-				<li class="member-item">휴먼회원(6개월 미접속자) <span class="count">21명</span></li>
-			</ul>
-		</div>
 
-		<!-- 상품문의 -->
-		<div class="admin-box">
-			<div class="admin-box-header">
-			<div class="admin-box-title"><i class="fas fa-comment-dots"></i> 상품문의</div>
-			<div class="more-link"><i class="fas fa-plus"></i> 더보기</div>
+			<!-- 상품문의 -->
+			<div class="admin-box bg-yellow">
+				<div class="admin-box-header">
+				<div class="admin-box-title"><i class="fas fa-question-circle icon-yellow"></i> 상품문의</div>
+				<div class="more-link">더보기 <i class="fas fa-plus"></i></div>
+				</div>
+				<div class="status-item">미답변 <span class="count">3건</span></div>
+				<div class="status-item">답변완료 <span class="count">8건</span></div>
 			</div>
-			<ul class="inquiry-list">
-			<li class="inquiry-item">사이즈가 어떻게 되나요?<span class="status">미답변</span><time>07:00</time></li>
-			<li class="inquiry-item">재입고 언제 되나요?<span class="status">답변완료</span><time>06:45</time></li>
-			<li class="inquiry-item">가격 조정 가능한가요?<span class="status">미답변</span><time>05:55</time></li>
-			</ul>
-		</div>
 		</div>
 
 		<!-- 하단 그래프 + 공지사항 -->
