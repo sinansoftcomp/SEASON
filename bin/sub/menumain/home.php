@@ -347,9 +347,9 @@ while($row = sqlsrv_fetch_array($qry, SQLSRV_FETCH_ASSOC)) {
 			<ul class="member-list">
 				<li class="member-item">전체가입회원 <span class="count">240명</span></li>
 				<li class="member-item">승인대기 <span class="count">3명</span></li>
-				<li class="member-item">최근 한달 가입 <span class="count">17명</span></li>
-				<li class="member-item">최근 한달 탈퇴 <span class="count">2명</span></li>
-				<li class="member-item">휴먼회원 <span class="count">21명</span></li>
+				<li class="member-item">최근 한달 내 가입회원 <span class="count">17명</span></li>
+				<li class="member-item">최근 한달 내 탈퇴회원 <span class="count">2명</span></li>
+				<li class="member-item">휴먼회원(6개월 미접속자) <span class="count">21명</span></li>
 			</ul>
 		</div>
 
