@@ -1,0 +1,149 @@
+@charset"utf-8";
+
+body, h1, h2, h3, h4, h5, h6, ul, li, ol, p{margin:0; padding:0; list-style:none}
+a:link{text-decoration:none;}
+body{min-width:1250px;}
+img{border:0}
+/**{border:1px solid #000}*/
+.font1{font-size:12px; font-family:'µ¸¿ò'}
+.left_menu_wrap{width:198px;height: 100%;overflow: hidden;}
+.left_menu_wrap h1{width:138px; height:59px; margin:10px auto;}
+.menu_content{clear:both;}
+.menu_content h2{height:36px; /*width:10px; */margin:0 auto; padding-left: 11px;font-size: 0px;}
+.menu_section1, .menu_section2, .menu_section3{clear:both; width:177px;margin:0 auto;}
+.menu_section1{height:210px;padding-top: 36px;}
+.menu_section1 li{    float: left;
+    width: 50%;
+    text-align: center;}
+.menu_section2 li h3{height:28px}
+.menu_section2 > li{
+	border-right: 1px solid #50a3e7;
+    border-left: 1px solid #50a3e7;
+	border-bottom: 1px solid #50a3e7;
+    width: 176px;
+}
+.menu_section2 h3 img{
+	    position:relative;
+		left:-1px;
+}
+.sub_menu{}
+.sub_menu li{border-bottom:1px solid #50a3e7;height:24px; line-height:24px; font-size:12px; font-family:'µ¸¿ò'; padding-left:5px}
+.sub_menu li:nth-child(10){border:0}
+.sub_menu li a:link{text-decoration:none; color:#5D5D5D}
+.sub_menu li a:visited{text-decoration:none; color:#5D5D5D}
+.sub_menu li a:hover{text-decoration:none; color:#f00}
+.menu_section3{height:90px;}
+.menu_section3 li{font-size:12px; padding:6px;}
+.icon{padding:3px;}
+.icon1{padding:10px;}
+.right_menu_wrap{float:left; width:100%;}
+/*#right_menu{ height:69px;}*/
+#login_info{padding:6px 0; width:250px;height:54px; margin-left:20px;  float:left;}
+#login_info img{width:54px;float:left;}
+#login_info p{height:53px; line-height:16px; margin-top:15px;}
+.mb_btn{float:right; width:450px; padding:11px 0; height:51px;}
+.mb_btn li{float:left; margin-left:10px;}
+
+.iframe_box1{clear:both; height:850px; border:3px solid #c0e0f0; border-width:3px 0 3px 3px; border-radius:10px 0px 0px 10px;}
+.iframe_box2{clear:both; height:848px; border:1px solid #D8D8D8; border-width:1px 0 1px 1px;  border-radius:0px 0px 0px 3px; }
+
+
+.onair_roll{margin:15px 5px 0 2px; border:1px solid #017dbd; border-radius:5px 5px 5px; height:25px; font-size:12px; line-height:25px; padding:0 5px;}
+
+
+/* header */
+#header{top:0;left:0;width:100%;height:75px;z-index:100;position:relative}
+#header h1{position:absolute;top:0;left:0;margin:0;padding:0}
+/*#header .header_wrap{position:relative;margin:0 137px 0 200px;height:75px;padding-top:15px;background:url(/healthcare/img/header_search_bg.gif) center top no-repeat}*/
+#header .header_wrap{position:relative;margin:0 10px 0 200px;height:75px;padding-top:15px;}
+#header .btn_side{position:absolute;top:15px;right:0;margin:0;padding:0}
+#header .search_wrap{position:relative;height:54px;border:1px solid #868386;background:url(/bin/img/header_wrap_bg.gif) repeat-x;-webkit-border-radius: 13px;-moz-border-radius: 13px;border-radius: 13px;-webkit-box-shadow: 0px 6px 0px #155eaa;-moz-box-shadow: 0px 6px 0px #155eaa;box-shadow: 0px 6px 0px #155eaa}
+#header .user_info{position:absolute;top:0;left:0;width:179px;height:100%;background:url(/bin/img/user_info_bg.gif) 10px top no-repeat}
+#header .user_info .info_wrap{padding:6px 22px 0 57px;text-align:left}
+#header .user_info .info_wrap .name{font-size:12px;color:#666;line-height:22px;margin:0}
+#header .user_info .info_wrap .btn_out{text-align:right}
+#header .user_info .info_wrap .btn_out img{vertical-align:top}
+#header .job_find{position:absolute;top:0;left:180px;width:130px;height:100%;background:url(/bin/img/header_line.gif) left center no-repeat}
+#header .job_find .btn_wrap{text-align:center;padding-top:18px}
+#header .job_find .btn_wrap a{margin:0 2px}
+#header .job_find .btn_wrap img{vertical-align:top}
+#header .search_detail{position:relative;height:100%;margin:0 165px 0 310px;padding:0 0 0 30px;background:url(/bin/img/header_line.gif) left center no-repeat}
+#header .search_detail .txt{font-size:12px;padding:10px 3px 5px 3px;line-height:1;color:#00757b;margin:0}
+#header .search_detail .input{position:relative;padding-right:50px}
+#header .search_detail .input input{position:relative;display:block;width:100%;font-size:12px;color:#333;background:#fff;border:1px solid #b7babc;height:22px;padding:0;margin:0 0 0 0}
+#header .search_detail .input a{position:absolute;top:0;right:0}
+#header .search_detail .input a img{vertical-align:top}
+#header .btn_list{position:absolute;top:7px;right:9px}
+#header .btn_list ul{padding:0;margin:0}
+#header .btn_list ul > li{margin-top:2px;padding:0;line-height:1}
+#header .btn_list ul > li:first-child{margin-top:0}
+#header .btn_list ul > li > a img{vertical-align:top}
+#header .btn_list button{padding:0;margin:0;background:none;border:none;outline:none}
+#header .btn_list button img{vertical-align:top}
+#header .btn_in{position:absolute;top:27px;right:81px}
+#header .btn_in img{vertical-align:top}
+
+
+
+
+#header .search_wrap2{position:relative;background: url(/bin/img/top_bg.png) repeat-x;height: 65px;}
+#header .user_info2{position:absolute;top:0;left:0;width:80px;height:100%;background:url(/bin/img/top_1.png) top no-repeat;background-position:left top;}
+#header .user_info3{position:absolute;top:0;left:0;width:20px;height:100%;background:url(/bin/img/top_3.png) top no-repeat;background-position:left top;}
+
+#header .btn_list2
+{
+	position: absolute;
+    top: 0;
+    left: 30;
+   /* width: 245px;*/
+    width: 245px;
+    height: 100%;
+    /*background: url(/healthcare/img/top_3.png) top no-repeat;*/
+}
+
+#header .btn_list2_1
+{
+	position: absolute;
+    top: 0;
+    left: 30;
+   /* width: 245px;*/
+    width: 245px;
+    height: 100%;
+    /*background: url(/healthcare/img/top_3.png) top no-repeat;*/
+}
+
+#header .btn_list3
+{
+	position: absolute;
+    top: 0;
+    right: 0;
+    width: 13px;
+    height: 100%;
+    background: url(/bin/img/top_2.png) top no-repeat;
+}
+#header .user_text2{
+	position: absolute;
+    top: 0;
+    left: 80px;
+    width: 24%;
+    height: 100%;
+}
+#header .logout_link
+{
+	position: absolute;
+    top: 0;
+    left: 21%;
+    margin-left: 70px;
+    width: 233px;
+    height: 100%;
+    background-position: -8px 0px;
+    z-index: 10;
+    
+}
+#header .search_input2{
+	position: relative;
+    height: 100%;
+    margin: 0 270px 0 270px;
+    padding: 0 0 0 25%;
+    z-index: 9;
+}

@@ -1,0 +1,275 @@
+<?
+include($_SERVER['DOCUMENT_ROOT']."/bin/include/source/head.php");
+
+$sql= "select SCODE,  SNAME from SWON where SCODE='A101'";	
+$qry  = sqlsrv_query( $mscon, $sql );
+$fet = sqlsrv_fetch_array($qry);
+$scode	= $fet['SCODE'];
+$sname = $fet['SNAME'];
+
+$YY = date("Y");
+$MM = date("m");
+$DD = date("d");
+
+$arrDay= array('일','월','화','수','목','금','토');
+$date = date('w'); //0 ~ 6 숫자 반환
+
+$DAY = $arrDay[$date].'요일'; 
+
+?>
+
+
+
+<script>
+	window.moveTo(0, 0);  
+	window.resizeTo(screen.width, screen.height);                             // 윈도우 리사이즈
+</script>
+<body style="overflow: hidden;">   <!-- 김순관 수정-->
+
+<style>
+html, body{ height:100%; margin:0px; }
+td { vertical-align: top;}
+
+.depth1:hover{
+	filter:brightness(1.1);
+	transform: scale(1.03);
+	transition:.1s;
+}
+
+aside .nc2 li.on a{font-weight:400; color:#000000;}
+
+.font_green{color:#25ad28;}
+
+
+</style>
+<!--/bin/image/galogo.jpg-->
+<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+<tr>
+	<td colspan=2 style="height:33px">
+		<header>
+			<h1 class="in-block" style="left:35px;height:33px;"><a href="<?=$conf['homeDir']?>/main.html"><img src="/bin/image/galogo.png" style="width:40px;" alt=""></a></h1>
+			<p class="today">
+				<input class="menu_click" type="text" id="prg_tit" style="width: 300px;" value="" readonly></input>
+			<div class="top_menu">
+
+				<strong class="name"> <?=$sname?> 님</strong>
+
+				<span class="btn_wrap">
+					<a href="/logoutOk.php" class="btn_round">로그아웃</a>
+					<a href="https://helpu.kr/sinit" target="_blank" class="btn_round" style="margin-right:20px">원격지원</a>
+				</span>
+			</div>
+		</header>
+	</td>
+</tr>
+
+<tr>
+	<td width="110" style="overflow: hidden;" id="leftmenu">
+		<div class="wrap">
+			
+			<div class="in_wrap" >
+				<aside>
+					<ul id="gnb">	
+						<input type="hidden" name="url" id="url" value="">
+
+						<li><input type="hidden" name="depthyn" id="depthyn" value="N">
+							<a href="#" class="depth1"><img src="/bin/image/menu_04.png" alt="">고객관리</a>
+							<div class="depth2">
+								<ul>
+									<li class="font_b600"><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_01.php" target="dataframe" data-txt="고객관리 > 고객정보"><i class="fa-regular fa-rectangle-list fa-lg mgr5 font_green"></i>고객정보</a></li>		
+									<li><a href="<?=$conf['homeDir']?>/sub/menu2/ga_menu2_02.php" target="dataframe" data-txt="고객관리 > 회원가입인증"><i class="fa-regular fa-rectangle-list fa-lg mgr5 font_green"></i>회원가입인증</a></li>		
+								</ul>
+							</div>	
+						</li>
+
+						<li>
+							<a href="#" class="depth1"><img src="/bin/image/menu_15.png" alt="" style="width:40px; height:40px">상품전시관리</a>
+							<div class="depth2">
+								<ul>
+									<li class="font_b600"><a href="<?=$conf['homeDir']?>/sub/menu3/ga_menu3_52.php" target="dataframe" data-txt="상품전시관리 > 상품분류관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>상품분류관리</a></li>		
+									<li><a href="<?=$conf['homeDir']?>/sub/menu3/ga_menu3_01.php" target="dataframe" data-txt="상품전시관리 > 전시상품관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>전시상품관리</a></li>	
+								</ul>
+							</div>	
+						</li>
+
+						<li>
+							<a href="#" class="depth1"><img src="/bin/image/menu_16.png" alt="" style="width:40px; height:40px">주문/발주관리</a>
+							<div class="depth2">
+								<ul>
+									<li class="font_b600"><a href="<?=$conf['homeDir']?>/sub/menu3/ga_menu3_72.php" target="dataframe" data-txt="주문/발주관리 > 주문현황"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>주문현황</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu3/ga_menu3_73.php" target="dataframe" data-txt="주문/발주관리 > 입금현황"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>입금현황</a></li>		
+									<li><a href="<?=$conf['homeDir']?>/sub/menu3/ga_menu3_74.php" target="dataframe" data-txt="주문/발주관리 > 발주내역/확정"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>발주내역/확정</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu5/ga_menu5_06.php" target="dataframe" data-txt="주문/발주관리 > 취소현황"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>취소현황</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu5/x1_etc.php" target="dataframe" data-txt="주문/발주관리 > 클레임처리"><i class="fa-regular fa-rectangle-list mgr5 font_orange"></i>클레임처리</a></li>	
+									<li><a href="javascript:sucalcPopOpen();" data-txt="주문/발주관리 > 리뷰관리"><i class="fa-regular fa-rectangle-list mgr5 font_orange"></i>리뷰관리</a></li>								
+								</ul>
+							</div>	
+						</li>
+		
+						<li>
+							<a href="#" class="depth1"><img src="/bin/image/menu_17.png" alt="" style="width:40px; height:40px">배송관리</a>
+							<div class="depth2">
+								<ul>
+									<li class="font_b600"><a href="<?=$conf['homeDir']?>/sub/menu6/ga_menu6_01.php" target="dataframe" data-txt="배송관리 > 배송관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>배송관리</a></li>		
+								</ul>
+							</div>	
+						</li>
+
+
+						<li>
+							<a href="#" class="depth1"><img src="/bin/image/menu_05.png" alt="">매출관리</a>
+							<div class="depth2">
+								<ul>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_02.php" target="dataframe" data-txt="매출관리 > 현금영수증관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>현금영수증관리</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_06.php" target="dataframe" data-txt="매출관리 > 매출내역"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>매출내역</a></li>
+								</ul>
+							</div>	
+						</li>
+
+						<li>
+							<a href="#" class="depth1"><img src="/bin/image/menu_06.png" alt="">환경설정</a>
+							<div class="depth2">
+								<ul>
+									<li class="font_b600"><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_01.php" target="dataframe" data-txt="환경설정 > 회사정보관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>회사정보관리</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_03.php" target="dataframe" data-txt="환경설정 > 발주사관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>발주사관리</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_07.php" target="dataframe" data-txt="환경설정 > 사원관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>사원관리</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_04.php" target="dataframe" data-txt="환경설정 > 배송비관리"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>배송비관리</a></li>
+									<li><a href="<?=$conf['homeDir']?>/sub/menu1/ga_menu1_05.php" target="dataframe" data-txt="환경설정 > 공지사항등록"><i class="fa-regular fa-rectangle-list mgr5 font_green"></i>공지사항등록</a></li>
+								</ul>
+							</div>	
+						</li>
+
+					</ul>
+				</aside>
+
+			</div>
+		</div>
+	</td>
+
+	<td class="td_wrap">	
+		<div class="td_framebox" style="height:100%;position: relative;"><!-- 98 ~ 100 test중! -->
+			<div id="" style="height:100%;position: relative;z-index: 1;">
+				<div class="iframe_box" style="height:100%;min-height:600px;">
+					<iframe src="<?=$conf['homeDir']?>/sub/menumain/home.php" width="100%" height="100%"  id="dataframe" name="dataframe" style="border:0; margin-top:0px;"></iframe>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+
+<!--사이드바 내용    		
+<div id="tree-container"></div> 
+</div>
+-->   
+
+<!-- 모달 -->
+<div id="modal" class="layerBody">
+
+</div>
+
+<!-- 모달 -->
+<div id="modal" class="layerBody2">
+
+</div>
+
+
+<script>
+
+// 메인프레임 전환함수
+function change_parent_url(url){
+	$("#dataframe").attr("src", url);
+}
+
+
+// 메뉴 클릭시 타이틀 설정
+$(".depth2 a").click(function(){
+
+	var title= $(this).data("txt");
+
+	$('#prg_tit').val(title);
+
+	//console.log(aa)
+});
+
+
+// url담아두기
+function fn_url(url){
+	
+	$("#url").val(url);
+}
+
+
+function fn_data(id){
+
+	// iframe url가져오기
+	//var url = $('#dataframe').attr('src');
+	var url = document.getElementById('url').value;
+	
+	var dataarr = $("#dataframe").get(0).contentWindow.main_data();
+	var bit	= dataarr.bit;
+	var sdate1 = dataarr.sdate1;
+	var sdate2 = dataarr.sdate2;
+	var inscode = dataarr.inscode;
+
+	//alert(sdate1+'/'+sdate2)
+
+
+	$("#dataframe").attr("src", url+"?BIT="+bit+"&SDATE1="+sdate1+"&SDATE2="+sdate2+"&inscode="+inscode+"&id="+id);
+}
+
+function sucalcPopOpen(){
+	var left = Math.ceil((window.screen.width - 580)/2);
+	var top = Math.ceil((window.screen.height - 330)/2);
+	var popOpen	= window.open("<?=$conf['homeDir']?>/sub/menu5/ga_menu5_05.php", "popup","width=500px,height=230px,top="+top+",left="+left+",status=0,toolbar=0,menubar=0,location=false,scrollbars=yes");
+	popOpen.focus();
+}
+
+function sunamePopOpen(){
+	var left = Math.ceil((window.screen.width - 600)/2);
+	var top = Math.ceil((window.screen.height - 750)/2);
+	var popOpen	= window.open("<?=$conf['homeDir']?>/sub/menu5/x1_04.php", "popup","width=618px,height=650px,top="+top+",left="+left+",status=0,toolbar=0,menubar=0,location=false,scrollbars=yes");
+	popOpen.focus();
+}
+
+function inschargePopOpen(){
+	var left = Math.ceil((window.screen.width - 840)/2);
+	var top = Math.ceil((window.screen.height - 350)/2);
+	var popOpen	= window.open("<?=$conf['homeDir']?>/sub/menu5/x1_03.php", "popup","width=785px,height=450px,top="+top+",left="+left+",status=0,toolbar=0,menubar=0,location=false,scrollbars=yes");
+	popOpen.focus();
+}
+
+
+// 보험상품 비교설명
+function insComp(){
+	var left = Math.ceil((window.screen.width - 1000)/2);
+	var top = Math.ceil((window.screen.height - 700)/2);
+	var popOpen	= window.open("<?=$conf['homeDir']?>/sub/menu6/ga_menu6_03.php", "insComp","width=1000px,height=600px,top="+top+",left="+left+",status=0,toolbar=0,menubar=0,location=false,scrollbars=yes");
+	popOpen.focus();	
+}
+
+$(document).ready(function(){
+
+	$('#prg_tit').val("Home");
+
+
+	$( window ).resize(function() {
+		
+		windowResize($(this));
+
+	});
+	
+
+});
+
+
+</script>
+
+
+<?
+include($_SERVER['DOCUMENT_ROOT']."/bin/include/source/bottom.php");
+?>
+
+
+</body>
+</html>
+<?mssql_close ( $mscon );?>

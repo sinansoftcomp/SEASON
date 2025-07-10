@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>이미지 보기</title>
+  <style>
+    body {
+      background: #f8fafb;
+      color: #222;
+      font-family: 'Noto Sans KR', 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 700px;
+      max-width: 98vw;
+      background: #fff;
+      margin: 40px 0 0 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .img-preview {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .desc {
+      font-size: 1.1rem;
+      color: #03c75a;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <div style="margin-bottom:18px;">
+      <a href="#" id="btn-main" style="margin-right:18px;color:#03c75a;font-weight:700;text-decoration:underline;">메인</a>
+      <a href="#" id="btn-sub1" style="margin-right:18px;color:#03c75a;font-weight:700;text-decoration:underline;">서브1</a>
+      <a href="#" id="btn-sub2" style="color:#03c75a;font-weight:700;text-decoration:underline;">서브2</a>
+    </div>
+    <img id="main-img" class="img-preview" src="img/main.png" alt="main.png" style="display:block;">
+    <img id="sub1-img" class="img-preview" src="img/sub_01.png" alt="sub_01.png" style="display:none;">
+    <img id="sub2-img" class="img-preview" src="img/sub_02.png" alt="sub_02.png" style="display:none;">
+    <script>
+      const mainBtn = document.getElementById('btn-main');
+      const sub1Btn = document.getElementById('btn-sub1');
+      const sub2Btn = document.getElementById('btn-sub2');
+      const mainImg = document.getElementById('main-img');
+      const sub1Img = document.getElementById('sub1-img');
+      const sub2Img = document.getElementById('sub2-img');
+      mainBtn.onclick = function(e) {
+        e.preventDefault();
+        mainImg.style.display = 'block';
+        sub1Img.style.display = 'none';
+        sub2Img.style.display = 'none';
+      };
+      sub1Btn.onclick = function(e) {
+        e.preventDefault();
+        mainImg.style.display = 'none';
+        sub1Img.style.display = 'block';
+        sub2Img.style.display = 'none';
+      };
+      sub2Btn.onclick = function(e) {
+        e.preventDefault();
+        mainImg.style.display = 'none';
+        sub1Img.style.display = 'none';
+        sub2Img.style.display = 'block';
+      };
+    </script>
+  </div>
+</body>
+</html>

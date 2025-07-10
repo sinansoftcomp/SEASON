@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    ul.tree {
+      list-style-type: none;
+    }
+    ul.tree ul {
+      list-style-type: none;
+    }
+    ul.tree li::before {
+      content: "▶";
+      margin-right: 5px;
+    }
+    .btn-check {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <button class="btn-check">선택 확인하기</button>
+  <ul class="tree">
+    <li id="root"><input type="checkbox" id="root-checkbox"> Root
+      <ul>
+        <li id="child1"><input type="checkbox" id="child1-checkbox"> Child 1
+          <ul>
+            <li id="grandchild1"><input type="checkbox" id="grandchild1-checkbox"> Grandchild 1</li>
+            <li id="grandchild2"><input type="checkbox" id="grandchild2-checkbox"> Grandchild 2</li>
+          </ul>
+        </li>
+        <li id="child2"><input type="checkbox" id="child2-checkbox"> Child 2</li>
+      </ul>
+    </li>
+  </ul>
+  
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // 처음에 모든 자식 요소를 감춥니다.
+      $('ul.tree ul').hide();
+
+      // 루트 요소와 자식 요소에 클릭 이벤트를 추가합니다.
+      $('ul.tree li').click(function(e) {
+        if (e.target.tagName !== 'INPUT') {
+          e.stopPropagation();
+          $(this).children('ul').toggle();
+        }
+      });
+
+      // 체크박스 클릭 시 토글되지 않도록 이벤트 막기
+      $('input[type="checkbox"]').click(function(e) {
+        e.stopPropagation();
+        if ($(this).parent().find('ul').length > 0) {
+          const isChecked = $(this).prop('checked');
+          $(this).parent().find('input[type="checkbox"]').prop('checked', isChecked);
+        }
+      });
+
+      // 버튼 클릭 시 선택된 노드 확인
+      $('.btn-check').click(function() {
+        const selectedNodes = [];
+        $('input[type="checkbox"]:checked').each(function() {
+          selectedNodes.push($(this).parent().attr('id'));
+        });
+        alert(selectedNodes.join('\n'));
+      });
+    });
+  </script>
+</body>
+</html>
+ 
+
