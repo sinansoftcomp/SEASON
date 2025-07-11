@@ -17,7 +17,7 @@ if (isset($_GET['SDATE1'])) {
 /* ------------------------------------------------------------
 	End Date 초기값 세팅
 ------------------------------------------------------------ */
-// 첫번째커밋dddddddddddddfaadfdfasdfdasfasdf
+
 $where = "";
 
 if(isset($_GET['searchF1'])){
@@ -258,7 +258,7 @@ function KwngoIns(gcode){
 
 	var left = Math.ceil((window.screen.width - 1000)/2);
 	var top = Math.ceil((window.screen.height - 830)/2);
-	var popOpen	= window.open("<?=$conf['homeDir']?>/sub/menu2/ga_menu2_01_pop.php?gcode="+gcode,"KwngoDt","width=1000px,height=760px,top="+top+",left="+left+",status=0,toolbar=0,menubar=0,location=false,scrollbars=yes");
+	var popOpen	= window.open("<?=$conf['homeDir']?>/sub/menu1/ga_menu1_01_pop.php?gcode="+gcode,"KwngoDt","width=1000px,height=760px,top="+top+",left="+left+",status=0,toolbar=0,menubar=0,location=false,scrollbars=yes");
 	popOpen.focus();
 }
 
